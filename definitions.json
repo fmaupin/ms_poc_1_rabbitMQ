@@ -1,0 +1,90 @@
+{
+  "exchanges": [
+    {
+      "name": "q1_ex",
+      "vhost": "mspoc",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+
+    {
+      "name": "q2_ex",
+      "vhost": "mspoc",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "q1",
+      "vhost": "mspoc",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+	"x-delivery-limit":5,
+	"x-message-ttl":300000,
+	"x-queue-type": "quorum"
+      }
+    },
+    {
+      "name": "q2",
+      "vhost": "mspoc",
+      "durable": true,
+      "auto_delete": false,       
+      "arguments": {
+        "x-delivery-limit":5,     
+        "x-message-ttl":300000,  
+        "x-queue-type": "quorum"  
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "source": "q1_ex",
+      "vhost": "mspoc",
+      "destination": "q1",
+      "destination_type": "queue",
+      "routing_key": "message.q1",
+      "arguments": {}
+    },
+    {
+      "source": "q2_ex",
+      "vhost": "mspoc",
+      "destination": "q2",
+      "destination_type": "queue",
+      "routing_key": "message.q2",
+      "arguments": {}
+    }
+  ],
+  "users": [
+    {
+     "name": "admin",
+      "password_hash": "kI3GCmuz7tp9wJQo4CwKdfoH8j4jGNyVlii5XN/a7VRhnWh5",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+     }
+  ],
+  "vhosts": [
+    {
+      "name": "mspoc"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "mspoc",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "policies": []
+}
+
