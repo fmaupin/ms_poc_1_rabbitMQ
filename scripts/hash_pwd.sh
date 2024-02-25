@@ -7,6 +7,5 @@ HEX="$SALT $PWD_HEX"
 
 SHA256=$(echo -n $HEX | xxd -r -p | sha256sum)
 
-# This is generated pwd to be inserted on your rabbit load_definitions file
+# password généré à insérer dans le fichier definitions.json - users / password_hash
 echo "908D C60A $SHA256" | xxd -r -p | base64 
-

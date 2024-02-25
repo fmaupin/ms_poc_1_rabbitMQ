@@ -1,58 +1,73 @@
+
 ## projet ms-poc-1-rabbitMQ
 
-L'objectif de ce projet est de déployer un broker de messages (rabbitMQ) sous forme d'image Docker.
+L'objectif de ce projet est de déployer un broker de messages (rabbitMQ) sous forme de container Docker avec une configuration type.
 
-Le broker doit être paramétré selon les besoins du projet ms-poc-1.
+***
+
+### Pré-requis
+
+Installation de [Docker] (https://www.docker.com/)
+
+***
 
 ### Image & container Docker
 
 https://hub.docker.com/_/rabbitmq
 
-script "buil.sh" -> construction image
+Dans répertoire '*scripts*' :
 
+* **script '*./init.sh*'** -> build & run image, check si serveur rabbitMQ a été correctement démarré et clean ressources
+
+* script "*./build.sh*" -> build image
 Cf. pour plus de détails fichiers "*Dockerfile*", "*definitions.json*" & "*rabbitmq.config*"
 
-script "run.sh" -> instantiation image (container)
+* script "*./run.sh*" -> instantiation image (container)
 
-Vérification :
-```
-docker container ls
-
-docker logs mspoc-rabbit
-```
+***
 
 ### Monitoring broker
 
 monitoring console : http://localhost:15672
 
-username/password -> définis dans fichier "*definitions.json*"
+username/password -> définis dans fichier configuration "*definitions.json*"
 
-script "*hash_pwd*" pour définir password user
+**IMPORTANT : exécution script "*scripts/hash_pwd*" pour définir password user**
+
+dans exemple fichier user/password -> "*admin*" / "*admin*"
+
+***
 
 ### vhost, exchange, queues
 
-Ces informations sont automatiquement implémentées lors de la création du container.
+Ces informations sont automatiquement implémentées lors du démarrage du broker.
 
 https://www.rabbitmq.com/tutorials/amqp-concepts.html
 
-Delivery mode messages vers queues -> Direct exchange routing
+* Delivery mode messages vers queues -> Direct exchange routing
 
-vhost créé -> 'mspoc'
+* vhost créé -> 'mspoc'
 
 user -> set permissions pour vhost (mspoc)
 
-queues -> type '*quorum*'
+* queues
 
 => q1 (queue de consommation des messages)
+
 => q2 (queue pour pusher des messages)
 
-arguments :
-- x-message-ttl = 300.000 milli-secondes -> 5 minutes
-- x-delivery-limit = 5
+arguments pour chaque queue :
+- 'x-message-ttl': *3.600.000* (milli-secondes -> 1 heure)
+- 'x-delivery-limit' : *3*
+- 'x-queue-type' : '*quorum*'
+
+***
 
 ### Auteur
 
 Ce projet a été créé par Fabrice MAUPIN.
+
+***
 
 ### License
 

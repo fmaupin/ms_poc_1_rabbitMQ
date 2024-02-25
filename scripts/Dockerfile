@@ -1,7 +1,5 @@
 FROM rabbitmq:3.12.2-management
 
-MAINTAINER fmaupin
-
 ADD rabbitmq.config /etc/rabbitmq/
 
 ADD definitions.json /etc/rabbitmq/
