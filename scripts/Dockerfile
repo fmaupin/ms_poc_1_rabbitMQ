@@ -1,10 +1,9 @@
-FROM rabbitmq:3.12.2-management
+FROM rabbitmq:4.0.5-management
 
-ADD rabbitmq.config /etc/rabbitmq/
+COPY rabbitmq.config /etc/rabbitmq/
 
-ADD definitions.json /etc/rabbitmq/
+COPY definitions.json /etc/rabbitmq/
 
 RUN chown rabbitmq:rabbitmq /etc/rabbitmq/rabbitmq.config  /etc/rabbitmq/definitions.json
 
 CMD ["rabbitmq-server"]
-
