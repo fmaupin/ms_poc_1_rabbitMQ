@@ -63,6 +63,18 @@ arguments pour chaque queue :
 
 ***
 
+### push image
+
+Pré-requis : credentials GitHub
+
+Créer au préalable un personal token sur GitHub (read/writing/delete packages et repo)
+
+* script "*./push.sh <GITHUB_USERNAME> <GITHUB_TOKEN>*"
+
+Image pushée sur GitHub Container Registry (disponible sur onglet "Packages")
+
+***
+
 ### Auteur
 
 Ce projet a été créé par Fabrice MAUPIN.
